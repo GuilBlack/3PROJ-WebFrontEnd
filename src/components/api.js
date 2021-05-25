@@ -7,3 +7,4 @@ const API = axios.create({ baseURL: 'http://localhost:6969', withCredentials: tr
 export const login = (user) => API.post('/user/login', user);
 export const registerStaff = (newUser) => API.post('/user/register-staff', newUser);
 export const logout = () => API.get('/user/logout');
+export const listStaff = () => API.get('/user/list-staff');

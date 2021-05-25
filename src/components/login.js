@@ -33,16 +33,16 @@ export default function Login() {
     }
 
     return (
-        <div>
+        <div className="login-register-container">
             <h1 className="text-center">Sign In</h1>
             <Form onSubmit={logUserIn}>
                 <Form.Group controlId="formEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" required={true} defaultValue="thegoodforkadmin@thegoodfork.com" />
+                    <Form.Control type="email" placeholder="name@example.com" required={true} />
                 </Form.Group>
                 <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Your password" required={true} pattern="[a-zA-Z0-9\-_@.#$^*!=+/\\']+" defaultValue="c'3stUNF4cK1ngsTR0nGp4Ssw8rd" />
+                    <Form.Control type="password" placeholder="Your password" required={true} pattern="[a-zA-Z0-9\-_@.#$^*!=+/\\']+" />
                 </Form.Group>
                 <div className="text-center">
                     <Button className="btnSubmit" type="submit">

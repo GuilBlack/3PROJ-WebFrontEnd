@@ -10,6 +10,7 @@ import PrivateRoute from './privateRoute';
 import Home from './home';
 import Login from './login';
 import RegisterStaff from './registerStaff';
+import Staff from './staff';
 import Menu from './menu';
 
 // ROUTES
@@ -20,6 +21,7 @@ export default function Routes() {
                 <Route name="login" path="/login">
                     <Login />
                 </Route>
+                <PrivateRoute Component={Staff} name="staff" path="/staff" />
                 <PrivateRoute Component={RegisterStaff} name="register" path="/register-staff" />
                 <PrivateRoute Component={Menu} name="menu" path="/menu" />
                 <PrivateRoute Component={Home} name="home" path="/" />

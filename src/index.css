@@ -19,3 +19,32 @@ h1 {
 form {
   padding: 20px;
 }
+
+/* LOGIN, REGISTER */
+.login-register-container {
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* STAFF */
+#list-staff {
+  display: flex;
+  justify-content: space-around;
+}
+
+.staff-section {
+  width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid;
+  border-color: darkgray;
+}
+
+.member-info {
+  padding: 8px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: rgb(63, 63, 63);
+  color: white;
+}

@@ -12,7 +12,7 @@ export default function AppNavbar() {
             <Navbar.Collapse className="justify-content-end">
                 <Nav>
                     <Nav.Item>
-                        <Nav.Link href="/register-staff">Staff</Nav.Link>
+                        <Nav.Link href="/staff">Staff</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link href="/menu">Menu</Nav.Link>
