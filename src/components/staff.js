@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { listStaff } from './api';
 import StaffInfo from './staffInfo';
+import Spinner from './spinner';
 
 export default function Staff() {
     const [staffMembers, setStaffMembers] = useState();
+    const [loading, setLoading] = useState(true);
     const roles = ["waiter", "barman", "cook"];
     
     useEffect(() => {
@@ -13,6 +15,7 @@ export default function Staff() {
         .then((res) => {
             console.log(res);
             setStaffMembers(res.data);
+            setLoading(false);
         })
         .catch((err) => {
             if(err.response) {
@@ -28,21 +31,20 @@ export default function Staff() {
             <h1 className="text-center">Staff</h1>
             
             <div className="text-center">
-                <Link to="/register-staff">Add a staff member</Link>
+                <Link to="/register-staff">Add a staff member <i class="bi bi-person-plus-fill"></i></Link>
             </div>
             
             <div id="list-staff">
                 {
-                    staffMembers ? 
                     roles.map(role => (
                             <div className="staff-section">
                                 <h2 className="text-center"> { role.toUpperCase() } </h2>
-                                <StaffInfo role={role} staffMembers={staffMembers} />
+                                {
+                                    loading ? <Spinner /> : <StaffInfo role={role} staffMembers={staffMembers} />
+                                }
                             </div>
                         )
                     )
-                    :
-                    <div>No staff :c</div>
                 }
                 
             </div>

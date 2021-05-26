@@ -8,7 +8,7 @@ export default function StaffInfo({role, staffMembers}) {
                 staffMembers?.filter(member => member.role.includes(role))
                     .map(filteredMember => (
                         <div className="member-info">
-                            { filteredMember.firstName } { filteredMember.lastName }
+                            <i class="bi bi-person-fill"></i> { filteredMember.firstName } { filteredMember.lastName }
                         </div>
                     ))
             }
