@@ -4,12 +4,13 @@ import { logout } from './api';
 
 export default function AppNavbar() {
     return (
-        <Navbar id="navbar" expand="sm" variant="light">
+        <Navbar id="navbar" collapseOnSelect expand="sm" variant="light">
             <Navbar.Brand href="/">
                 The Good Fork
             </Navbar.Brand>
 
-            <Navbar.Collapse className="justify-content-end">
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                 <Nav>
                     <Nav.Item>
                         <Nav.Link href="/staff">Staff</Nav.Link>
