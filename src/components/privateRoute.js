@@ -13,11 +13,7 @@ export default function PrivateRoute({Component, name, path}) {
                  * loggedIn --> changes on explicit login/logout 
                  * isLoggedIn --> ensures that the auth cookie didn't expire or get deleted while using the app 
                  */
-
-                loggedIn && isLoggedIn() ?
-                <Component />
-                :
-                <Redirect to='/login' />
+                loggedIn && isLoggedIn() ? <Component /> : <Redirect to='/login' />
             }
         </Route>
     );
