@@ -1,17 +1,24 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import AuthContext from '../utils/authContext';
 import { isLoggedIn } from '../utils';
 
-
 export default function PrivateRoute({Component, name, path}) {
+    const { loggedIn } = React.useContext(AuthContext);
     return(
         <Route name={name} path={path}>
             {
-                isLoggedIn() ?
+                /**
+                 * check both loggedIn and isLoggedIn, since
+                 * loggedIn --> changes on explicit login/logout 
+                 * isLoggedIn --> ensures that the auth cookie didn't expire or get deleted while using the app 
+                 */
+
+                loggedIn && isLoggedIn() ?
                 <Component />
                 :
                 <Redirect to='/login' />
             }
         </Route>
-    )
+    );
 }

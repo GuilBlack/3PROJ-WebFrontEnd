@@ -1,10 +1,12 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { logout } from './api';
+import { logout } from '../utils/api';
+import AuthContext from '../utils/authContext';
 
 export default function AppNavbar() {
+    const { loggedIn, setLoggedIn } = React.useContext(AuthContext);
     return (
-        <Navbar id="navbar" collapseOnSelect expand="sm" variant="light">
+        <Navbar id="navbar" collapseOnSelect expand="sm" variant="light" bg="light" sticky="top">
             <Navbar.Brand href="/">
                 The Good Fork
             </Navbar.Brand>
@@ -19,10 +21,10 @@ export default function AppNavbar() {
                         <Nav.Link href="/menu">Menu</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Button variant="link" onClick={() => logout()}>Log out</Button>
+                        <Button hidden={!loggedIn} variant="link" onClick={() => { logout(); setLoggedIn(false) }}>Log out</Button>
                     </Nav.Item>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-    )
+    );
 }

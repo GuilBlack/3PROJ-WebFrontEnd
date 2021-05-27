@@ -1,11 +1,15 @@
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Button, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { login } from './api';
+import { login } from '../utils/api';
+import AuthContext from '../utils/authContext';
 
 export default function Login() {
+    const { setLoggedIn } = React.useContext(AuthContext);
 
-    let history = useHistory();
+    const history = useHistory();
+
+    const [err, setErr] = useState();
 
     // when submitting the login form
     const logUserIn = e => {
@@ -21,20 +25,27 @@ export default function Login() {
 
         // backend api call
         login(user)
-        .then((res) => {
+        .then(() => {
+            setLoggedIn(true);
             history.push("/");
         })
         .catch((err) => {
             if(err.response)
-                console.log(err.response.data.message);
+                setErr(err.response.data.message);
             else
-                console.log(err);
+                setErr("Our servers are down at the moment. Please try again later.");
         });
     }
 
     return (
-        <div className="login-register-container">
+        <div className="form-wrapper">
             <h1 className="text-center">Sign In</h1>
+            <div className="text-center" hidden={!err}>
+                <Alert variant="danger">
+                        <Alert.Heading>Oops!</Alert.Heading>
+                        <p> {err} </p>
+                </Alert>
+            </div>
             <Form onSubmit={logUserIn}>
                 <Form.Group controlId="formEmail">
                     <Form.Label>Email address</Form.Label>
@@ -51,5 +62,5 @@ export default function Login() {
                 </div>
             </Form>
         </div>
-    )
+    );
 }

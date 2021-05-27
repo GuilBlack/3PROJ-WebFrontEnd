@@ -1,10 +1,19 @@
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Button, Alert } from 'react-bootstrap';
+import Select from 'react-select';
 import { useHistory } from 'react-router-dom';
-import { registerStaff } from './api';
+import { registerStaff } from '../utils/api';
 
 export default function RegisterStaff() {
-    let history = useHistory();
+    const history = useHistory();
+
+    const [err, setErr] = useState();
+        
+    const roles = [
+        { value: "waiter", label: "Waiter" },
+        { value: "cook", label: "Cook" },
+        { value: "barman", label: "Barman" },
+    ]
 
     // when submitting the register form
     const registerUser = e => {
@@ -21,6 +30,11 @@ export default function RegisterStaff() {
             role: formData.formRole.value
         }
 
+        if(!user.role){
+            setErr("You forgot to input a role!");
+            return;
+        }
+
         // backend api call
         registerStaff(user)
         .then ((res) => {
@@ -28,13 +42,23 @@ export default function RegisterStaff() {
             history.push("/staff");
         })
         .catch((err) => {
-            console.log(err.response.data.message);
+            if(err.response) {
+                setErr(err.response.data.message);
+            } else {
+                setErr("Our servers are down at the moment. Please try again later.");
+            }
         });
     }
 
     return (
-        <div className="login-register-container">
+        <div className="form-wrapper">
             <h1 className="text-center">New Staff Member</h1>
+            <div className="text-center" hidden={!err}>
+                <Alert variant="danger">
+                        <Alert.Heading>Oops!</Alert.Heading>
+                        <p> {err} </p>
+                </Alert>
+            </div>
             <Form onSubmit={registerUser}>
                 <Form.Group controlId="formEmail">
                     <Form.Label>Email address</Form.Label>
@@ -50,26 +74,26 @@ export default function RegisterStaff() {
                 </Form.Group>
                 <Form.Group controlId="formRole">
                     <Form.Label>Role</Form.Label>
-                    <Form.Control as="select">
-                        <option>waiter</option>
-                        <option>cook</option>
-                        <option>barman</option>
-                    </Form.Control>
+                    <Select 
+                        name="formRole"
+                        options={roles}
+                        className="basic-select"
+                        classNamePrefix="select"
+                    />
                 </Form.Group>
                 <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="password" required={true} pattern="[a-zA-Z0-9\-_@.#$^*!=+/\\']+.{8,}" />
+                    <Form.Control type="password" placeholder="password" required={true} pattern="[a-zA-Z0-9\-_@.#$^*!=+/\\']{8,}" />
                     <Form.Text id="formTextPwd" className="subText">
                         Password must contain <strong>at least 8 characters</strong>.
                         The only special characters allowed are: <strong>- _ @ . # $ ^ * ! = + / \ '</strong>
                     </Form.Text>
                 </Form.Group>
-                <div className="text-center">
-                    <Button className="btnSubmit" type="submit">
-                        Add Staff Member
-                    </Button>
+                <div className="d-flex justify-content-between">
+                    <Button className="btnSubmit" type="submit"> Add Staff Member </Button>
+                    <Button variant="outline-secondary" type="button" onClick={() => history.goBack()}> Cancel </Button>
                 </div>
             </Form>
         </div>
-    )
+    );
 }

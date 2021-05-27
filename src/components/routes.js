@@ -27,5 +27,5 @@ export default function Routes() {
                 <PrivateRoute Component={Home} name="home" path="/" />
             </Switch>
         </Router> 
-    )
+    );
 }

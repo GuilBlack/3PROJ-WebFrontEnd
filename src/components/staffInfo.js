@@ -7,13 +7,13 @@ export default function StaffInfo({role, staffMembers}) {
             {
                 staffMembers?.filter(member => member.role.includes(role))
                     .map(filteredMember => (
-                        <div className="member-info">
-                            <i class="bi bi-person-fill"></i> { filteredMember.firstName } { filteredMember.lastName }
+                        <div className="member-info" key={filteredMember.email}>
+                            <i className="bi bi-person-fill"></i> { filteredMember.firstName } { filteredMember.lastName }
                         </div>
                     ))
             }
         </div>
-    )
+    );
 }
 
 StaffInfo.propTypes = {
