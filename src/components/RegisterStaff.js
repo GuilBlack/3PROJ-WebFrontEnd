@@ -48,7 +48,6 @@ export default function RegisterStaff() {
                 setErr(err.response.data.message);
             else 
                 setErr("Our servers are down at the moment. Please try again later.");
-            
         });
     }
 
