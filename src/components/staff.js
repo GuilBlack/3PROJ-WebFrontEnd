@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
-import { listStaff } from '../utils/api';
-import StaffInfo from './staffInfo';
-import Spinner from './spinner';
+import { listStaff } from '../api';
+import StaffInfo from './StaffInfo';
+import Spinner from './Spinner';
 
 export default function Staff() {
     const [staffMembers, setStaffMembers] = useState();

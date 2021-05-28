@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { login } from '../utils/api';
-import AuthContext from '../utils/authContext';
+import { login } from '../api';
+import AuthContext from '../context/AuthContext';
 
 export default function Login() {
     const { setLoggedIn } = React.useContext(AuthContext);

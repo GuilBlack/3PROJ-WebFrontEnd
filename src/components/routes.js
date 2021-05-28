@@ -6,12 +6,12 @@ import {
 } from "react-router-dom";
 
 // import components
-import PrivateRoute from './privateRoute';
-import Home from './home';
-import Login from './login';
-import RegisterStaff from './registerStaff';
-import Staff from './staff';
-import Menu from './menu';
+import PrivateRoute from './PrivateRoute';
+import Home from './Home';
+import Login from './Login';
+import RegisterStaff from './RegisterStaff';
+import Staff from './Staff';
+import Menu from './Menu';
 
 // ROUTES
 export default function Routes() {

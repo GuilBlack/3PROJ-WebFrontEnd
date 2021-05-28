@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './App.css';
-import AuthContext from './utils/authContext';
-import { isLoggedIn } from './utils';
+import '../styles/App.css';
+import AuthContext from '../context/AuthContext';
+import { isLoggedIn } from '../utils';
 
 // import components
-import AppNavbar from './components/navbar';
-import Routes from './components/routes';
+import AppNavbar from './Navbar';
+import Routes from './Routes';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());

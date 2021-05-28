@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { logout } from '../utils/api';
-import AuthContext from '../utils/authContext';
+import { logout } from '../api';
+import AuthContext from '../context/AuthContext';
 
 export default function AppNavbar() {
     const { loggedIn, setLoggedIn } = React.useContext(AuthContext);
