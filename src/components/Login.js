@@ -30,8 +30,8 @@ export default function Login() {
             history.push("/");
         })
         .catch((err) => {
-            if(err.response)
-                setErr(err.response.data.message);
+            if(err.response.status === 401)
+                setErr("Wrong credentials");
             else
                 setErr("Our servers are down at the moment. Please try again later.");
         });
