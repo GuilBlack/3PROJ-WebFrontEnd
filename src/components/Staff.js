@@ -35,6 +35,12 @@ export default function Staff() {
         <div>
             <h1 className="text-center">Staff</h1>
             
+            <div className="text-center" hidden={!(staffMembers?.length === 0)}>
+                <Alert variant="info">
+                        <Alert.Heading>You don't have staff members yet</Alert.Heading>
+                </Alert>
+            </div>
+            
             <div className="text-center" hidden={!err}>
                 <Alert variant="danger">
                         <Alert.Heading>Sorry!</Alert.Heading>
@@ -63,7 +69,6 @@ export default function Staff() {
                     </Link>
                 </div>
             </div>
-
         </div>
     );
 }
