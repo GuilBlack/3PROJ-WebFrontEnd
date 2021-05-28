@@ -42,12 +42,14 @@ export default function RegisterStaff() {
             history.push("/staff");
         })
         .catch((err) => {
-            if(err.response.status === 401)
-                setErr("An unexpected error occured. Please log out and log back in to proceed.");
-            else if(err.response) 
-                setErr(err.response.data.message);
-            else 
+            if(err.response) {
+                if(err.response.status === 401)
+                    setErr("An unexpected error occured. Please log out and log back in to proceed.");
+                else
+                    setErr(err.response.data.message);
+            } else {
                 setErr("Our servers are down at the moment. Please try again later.");
+            }
         });
     }
 
