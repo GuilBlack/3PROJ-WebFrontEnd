@@ -19,7 +19,11 @@ export default function Staff() {
             setLoading(false);
         })
         .catch((err) => {
-            if(err.response) {
+            if(err.response.status === 401) {
+                setErr("An unexpected error occured. Please log out and log back in to proceed.");
+                setLoading(false);
+            }
+            else if(err.response) {
                 setErr(err.response.data.message);
                 setLoading(false);
             } else {
