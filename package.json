@@ -21,7 +21,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://api.guillaumeblackburn.me",
   "eslintConfig": {
     "extends": [
       "react-app",
