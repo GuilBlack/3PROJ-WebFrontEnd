@@ -60,10 +60,6 @@ export default function RegisterStaff() {
                 </Alert>
             </div>
             <Form onSubmit={registerUser}>
-                <Form.Group controlId="formEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" required={true}/>
-                </Form.Group>
                 <Form.Group controlId="formFName">
                     <Form.Label>First name</Form.Label>
                     <Form.Control type="text" placeholder="John" required={true}/>
@@ -71,6 +67,10 @@ export default function RegisterStaff() {
                 <Form.Group controlId="formLName">
                     <Form.Label>Last name</Form.Label>
                     <Form.Control type="text" placeholder="Doe" required={true}/>
+                </Form.Group>
+                <Form.Group controlId="formEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="name@example.com" required={true}/>
                 </Form.Group>
                 <Form.Group controlId="formRole">
                     <Form.Label>Role</Form.Label>
