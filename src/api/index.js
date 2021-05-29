@@ -6,7 +6,6 @@ Amplify.configure({
             {
                 name: "name",
                 endpoint: "https://api.guillaumeblackburn.me",
-                withCredentials: true
             }
         ]
     }
@@ -26,6 +25,8 @@ export const login = (user) => API.post('name', '/user/login', {
     headers: {},
     response: true,
     body: user
+}, {
+    withCredentials: true
 });
 
 
