@@ -24,8 +24,7 @@ const obj = { // OPTIONAL
 export const login = (user) => API.post('name', '/user/login', {
     headers: {},
     response: true,
-    body: user
-}, {
+    body: user,
     withCredentials: true
 });
 
