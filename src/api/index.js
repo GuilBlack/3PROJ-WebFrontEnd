@@ -6,7 +6,7 @@ Amplify.configure({
             {
                 name: "name",
                 endpoint: "https://api.guillaumeblackburn.me",
-                // withCredentials: true
+                withCredentials: true
             }
         ]
     }
