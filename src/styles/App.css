@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'pacificoregular';
+  src: url(./fonts/pacifico-regular-webfont.woff2) format('woff2'),
+       url(./fonts/pacifico-regular-webfont.woff) format('woff'),
+       url(./fonts/Pacifico-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'amatic_scregular';
+  src: url(./fonts/amaticsc-bold-webfont.woff2) format('woff2'),
+       url(./fonts/amaticsc-bold-webfont.woff) format('woff'),
+       url(./fonts/AmaticSC-Bold.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   padding-bottom: 30px;
 }
@@ -6,8 +24,14 @@ body {
   margin-bottom: 20px;
 }
 
-h1 {
-  font-family: 'Brush Script MT';
+.navbar-brand {
+  font-family: 'pacificoregular', sans-serif;
+  font-size: 1.7em;
+  padding: 18px;
+}
+
+h1, h2 {
+  font-family: 'amatic_scregular', sans-serif;
 }
 
 form {
