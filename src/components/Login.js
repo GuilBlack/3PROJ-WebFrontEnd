@@ -25,10 +25,9 @@ export default function Login() {
 
         // backend api call
         login(user)
-        .then((res) => {
-            setLoggedIn(true);
+        .then(() => {
             history.push("/");
-            console.log(res);
+            setLoggedIn(true);
         })
         .catch((err) => {
             if(err.response?.status === 401)
