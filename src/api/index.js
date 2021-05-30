@@ -1,34 +1,10 @@
-import Amplify, { API } from 'aws-amplify';
+import axios from 'axios';
 
-Amplify.configure({
-    API: {
-        endpoints: [
-            {
-                name: "name",
-                endpoint: "https://api.guillaumeblackburn.me",
-            }
-        ]
-    }
-});
-
-
-const obj = { // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {  // OPTIONAL
-        name: 'param',
-    },
-};
+// set base URL
+const API = axios.create({ baseURL: 'https://api.guillaumeblackburn.me', withCredentials: true });
 
 // api calls
-export const login = (user) => API.post('name', '/user/login', {
-    headers: {},
-    response: true,
-    body: user,
-    withCredentials: true
-});
-
-
+export const login = (user) => API.post('/user/login', user);
 export const registerStaff = (newUser) => API.post('/user/register-staff', newUser);
 export const logout = () => API.get('/user/logout');
 export const listStaff = () => API.get('/user/list-staff');
