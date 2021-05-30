@@ -86,10 +86,9 @@ export default function RegisterStaff() {
                 </Form.Group>
                 <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="password" required={true} pattern="[a-zA-Z0-9\-_@.#$^*!=+/\\']{8,}" />
+                    <Form.Control type="password" placeholder="password" required={true} />
                     <Form.Text id="formTextPwd" className="subText">
                         Password must contain <strong>at least 8 characters</strong>.
-                        The only special characters allowed are: <strong>- _ @ . # $ ^ * ! = + / \ '</strong>
                     </Form.Text>
                 </Form.Group>
                 <div className="d-flex justify-content-between">

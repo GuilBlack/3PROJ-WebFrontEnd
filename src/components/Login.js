@@ -53,7 +53,7 @@ export default function Login() {
                 </Form.Group>
                 <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Your password" required={true} pattern="[a-zA-Z0-9\-_@.#$^*!=+/\\']+" />
+                    <Form.Control type="password" placeholder="Your password" required={true} />
                 </Form.Group>
                 <div className="text-center">
                     <Button className="btnSubmit" type="submit">
