@@ -84,6 +84,7 @@ export default function MenuItem({ id }) {
                         console.log("An unexpected error occured. Please log out and log back in to proceed.");
                     else
                         console.log(err.response.data.message);
+                        console.log(err.response.data.err);
                 } else {
                     console.log("Our servers are down at the moment. Please try again later.");
                 }
