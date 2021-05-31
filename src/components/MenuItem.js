@@ -58,7 +58,7 @@ export default function MenuItem({ id }) {
         let ingputain = [
             {
                 "ingredient": "60b4c1c95b54a0c70e82d3f2",
-                "ammountUsed": "7"
+                "amountUsed": "7"
             }
         ]
 
