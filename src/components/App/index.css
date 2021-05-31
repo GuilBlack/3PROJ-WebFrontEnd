@@ -47,6 +47,12 @@ form {
   margin: 0 auto;
 }
 
+.item {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 /* STAFF */
 #list-staff {
   display: flex;
@@ -100,10 +106,12 @@ form {
 }
 
 /* MENU */
-#menu-item {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+.category-type-section {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid;
+  border-color: darkgray;
 }
 
 #preview-image {
@@ -116,4 +124,13 @@ form {
   border-radius: 20px;
   padding: 5px;
   margin-bottom: 20px;
+}
+
+/* temp */
+.member-info a, .member-info button {
+  color:white;
+}
+
+.section2{
+  padding: 20px;
 }
