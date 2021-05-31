@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function StaffInfo({role, staffMembers}) {
+export default function StaffInfo({ role, staffMembers }) {
     return (
-        <div>
-            {
-                staffMembers?.filter(member => member.role.includes(role))
-                    .map(filteredMember => (
-                        <div className="member-info" key={filteredMember.email}>
-                            <i className="bi bi-person-fill"></i> { filteredMember.firstName } { filteredMember.lastName }
-                        </div>
-                    ))
-            }
-        </div>
+        staffMembers?.filter(member => member.role.includes(role))
+            .map(filteredMember => (
+                <div className="member-info" key={filteredMember.email}>
+                    <i className="bi bi-person-fill"></i> { filteredMember.firstName} { filteredMember.lastName}
+                </div>
+            ))
     );
 }
 
