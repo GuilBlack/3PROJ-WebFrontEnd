@@ -63,7 +63,7 @@ export default function MenuItem({ id }) {
         ]
 
         const menuItem = new FormData();
-        menuItem.append('categoryId', '60b0e58048886651104a32ee');
+        menuItem.append('categoryId', '60b4c3676f30eb5df4c88ae4');
         menuItem.append('name', formData.formName.value);
         menuItem.append('description', formData.formDesc.value);
         menuItem.append('imagePreview', file);
