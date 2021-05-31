@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
-import { isLoggedIn } from '../utils';
+import AuthContext from '../../context/AuthContext';
+import { isLoggedIn } from '../../utils';
 
 export default function PrivateRoute({Component, name, path}) {
     const { loggedIn } = React.useContext(AuthContext);

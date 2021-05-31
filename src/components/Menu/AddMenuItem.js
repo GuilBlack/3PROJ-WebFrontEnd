@@ -3,9 +3,9 @@ import { Form, Button, Col, InputGroup } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
 import fs from 'fs';
-import { addMenuItem } from '../api';
+import { addMenuItem } from '../../api';
 
-export default function MenuItem({ id }) {
+export default function AddMenuItem() {
     // TO PUT CATEGORY ID AS PARAM AND THEN SEND IN API CALL
     const history = useHistory();
 
@@ -18,16 +18,9 @@ export default function MenuItem({ id }) {
     const [existingItem, setExistingItem] = useState();
 
     useEffect(() => {
-        if (id) {
-            const getExistingData = () => {
-
-                // call to backend api for this menu item
-
-                let existingIngredients = []; // to build obj using {existingItem.ingredients} and use the IDs to filter {ingredientsList}
-                // send filtered data to {ingredients}
-            }
-        }
-    }, [id]);
+        // call for list of ingredients
+        
+    }, []);
 
     // will get ingredients from database, put them in an array as such
     // with value: {ObjectId}, label: {ingredientName}

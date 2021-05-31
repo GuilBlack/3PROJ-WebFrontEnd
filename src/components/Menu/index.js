@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import MenuItem from './MenuItem';
+import AddMenuItem from './AddMenuItem';
 
 export default function Menu() {
     const [categories, getCategories] = useState([]);
 
     const newCategory = () => {
-        
+
     }
 
     const fetchCategories = () => {
@@ -21,7 +21,7 @@ export default function Menu() {
                     Add a Category
                 </Button>
             </div>
-            <MenuItem />
+            <AddMenuItem />
         </div>
     );
 }

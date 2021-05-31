@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { logout } from '../api';
-import AuthContext from '../context/AuthContext';
+import { logout } from '../../api';
+import AuthContext from '../../context/AuthContext';
 
 export default function AppNavbar() {
     const { loggedIn, setLoggedIn } = React.useContext(AuthContext);
@@ -18,8 +18,12 @@ export default function AppNavbar() {
                         <Nav.Link href="/staff">Staff</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
+                        <Nav.Link href="/ingredients">Ingredients</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
                         <Nav.Link href="/menu">Menu</Nav.Link>
                     </Nav.Item>
+                    
                     <Nav.Item>
                         <Button hidden={!loggedIn} variant="link" onClick={() => { logout(); setLoggedIn(false) }}>Log out</Button>
                     </Nav.Item>

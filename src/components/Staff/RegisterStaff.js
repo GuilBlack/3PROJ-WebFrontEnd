@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import Select from 'react-select';
 import { useHistory } from 'react-router-dom';
-import { registerStaff } from '../api';
+import { registerStaff } from '../../api';
 
 export default function RegisterStaff() {
     const history = useHistory();
