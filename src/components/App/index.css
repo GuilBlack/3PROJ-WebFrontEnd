@@ -38,6 +38,11 @@ h2 {
   font-family: 'amatic_scregular', sans-serif;
 }
 
+th {
+  font-family: "Brush Script MT", "amatic_scregular", sans-serif;
+  font-size: 25px;
+}
+
 form {
   padding: 20px;
 }
