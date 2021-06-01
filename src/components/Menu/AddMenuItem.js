@@ -1,39 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Col, InputGroup } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Form, Col, Button, InputGroup, Alert } from 'react-bootstrap';
+import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
-import fs from 'fs';
-import { addMenuItem } from '../../api';
+import { addMenuItem, listIngredients } from '../../api';
 
 export default function AddMenuItem() {
-    // TO PUT CATEGORY ID AS PARAM AND THEN SEND IN API CALL
+
+    /**
+     * TODO:
+     * - handle ingredients amounts get removed when an ingredient is removed from the multi dropdown
+     *  --> clear input values upon ingredient change?
+     * - add CSS
+     */
+
+    // use the parameters sent in the url
+    const { categoryName, categoryId } = useParams();
+
     const history = useHistory();
 
     const [ingredients, setIngredients] = useState([]);
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
+    const [ingredientObject, setIngredientObject] = useState([]);
     const [file, setFile] = useState();
     const [fileName, setFileName] = useState("Upload Image File");
     const [imagePreview, setImagePreview] = useState();
-
-    // for existing menu items, get the data from database and fill the input fields in with existingItems.values {existingIngredients}
-    const [existingItem, setExistingItem] = useState();
+    const [info, setInfo] = useState(false);
+    const [err, setErr] = useState();
 
     useEffect(() => {
         // call for list of ingredients
-        
+        listIngredients()
+            .then((res) => {
+                console.log(res.data);
+                let ingredientsList = [];
+                res.data.forEach((ing) => {
+                    ingredientsList.push({
+                        value: ing._id, label: ing.name.toLowerCase()
+                    });
+                });
+                setIngredients(ingredientsList);
+            })
+            .catch((err) => {
+                if (err.response) {
+                    if (err.response.status === 401)
+                        setErr("An unexpected error occured. Please log out and log back in to proceed.");
+                    else
+                        setErr(err.response.data.message);
+                } else {
+                    setErr("We couldn't load the list of ingredients because the servers can't be reached at the moment.");
+                }
+            });
     }, []);
-
-    // will get ingredients from database, put them in an array as such
-    // with value: {ObjectId}, label: {ingredientName}
-    const ingredientsList = [
-        { value: "ingredient 1", label: "Ingredient 1" },
-        { value: "ingredient 2", label: "Ingredient 2" },
-        { value: "ingredient 3", label: "Ingredient 3" },
-        { value: "ingredient 4", label: "Ingredient 4" },
-        { value: "ingredient 5", label: "Ingredient 5" },
-        { value: "ingredient 6", label: "Ingredient 6" },
-        { value: "ingredient 7", label: "Ingredient 7" },
-        { value: "ingredient 8", label: "Ingredient 8" },
-    ]
 
     const handleImageFile = e => {
         let imgFile = e.target.files[0];
@@ -43,25 +60,27 @@ export default function AddMenuItem() {
         setImagePreview(imageAsBase64);
     }
 
-    const addItem = e => {
+    const newMenuItem = e => {
         e.preventDefault();
+        
+        if(!imagePreview) {
+            return setErr("Please choose an image for this menu item.");
+        } else if(ingredientObject.length === 0) {
+            return setErr("You forgot to input the ingredients.");
+        } else {
+            setErr();
+            setInfo(true);
+        }
 
         const formData = e.target.elements;
 
-        let ingputain = [
-            {
-                "ingredient": "60b4c1c95b54a0c70e82d3f2",
-                "amountUsed": "7"
-            }
-        ]
-
         const menuItem = new FormData();
-        menuItem.append('categoryId', '60b4c3676f30eb5df4c88ae4');
+        menuItem.append('categoryId', categoryId);
         menuItem.append('name', formData.formName.value);
         menuItem.append('description', formData.formDesc.value);
         menuItem.append('imagePreview', file);
         menuItem.append('price', formData.formPrice.value);
-        menuItem.append('ingredients', JSON.stringify(ingputain));
+        menuItem.append('ingredients', JSON.stringify(ingredientObject));
 
         // Display the key/value pairs
         for (var pair of menuItem.entries()) {
@@ -70,74 +89,138 @@ export default function AddMenuItem() {
 
         // api call
         addMenuItem(menuItem)
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res);
+                history.push('/menu');
+            })
             .catch((err) => {
                 if (err.response) {
-                    if (err.response.status === 401)
-                        console.log("An unexpected error occured. Please log out and log back in to proceed.");
-                    else
-                        console.log(err.response.data.message);
-                        console.log(err.response.data.err);
+                    if (err.response.status === 401) {
+                        setErr("An unexpected error occured. Please log out and log back in to proceed.");
+                    }
+                    else {
+                        setErr(err.response.data.message);
+                    }
                 } else {
-                    console.log("Our servers are down at the moment. Please try again later.");
+                    setErr(err);
                 }
+                setInfo(false);
             });
     }
 
-    return (
-        <div id="menu-item">
-            <div className="form-wrapper">
-                <Form onSubmit={addItem}>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formName">
-                            <Form.Label>Dish/Drink name</Form.Label>
-                            <Form.Control type="text" required={true} />
-                        </Form.Group>
-                        <Form.Group as={Col} xs="4" controlId="formPrice">
-                            <Form.Label>Price</Form.Label>
-                            <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text>€</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <Form.Control type="number" step="0.01" min="0.01" required={true} />
-                            </InputGroup>
-                        </Form.Group>
-                    </Form.Row>
-                    <Form.Group controlId="formDesc">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" required={true} />
-                    </Form.Group>
-                    <Form.Group controlId="formImage" xs="4">
-                        <Form.Label>Dish/Drink picture</Form.Label>
-                        <Form.File
-                            id="custom-file"
-                            label={fileName}
-                            custom
-                            onChange={(e) => handleImageFile(e)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formIngredients">
-                        <Form.Label>Ingredients</Form.Label>
-                        <Select
-                            isMulti
-                            name="formIngredients"
-                            options={ingredientsList}
-                            defaultValue={ingredients}
-                            onChange={setIngredients}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                        />
-                    </Form.Group>
+    console.log(ingredientObject);
 
-                    <div className="d-flex justify-content-between">
-                        <Button className="btnSubmit" type="submit"> Save </Button>
-                        <Button variant="outline-secondary" type="button" onClick={() => history.goBack()}> Cancel </Button>
+    return (
+        <div>
+            <h1 className="text-center">Add menu item for "{categoryName}"</h1>
+            <Form onSubmit={newMenuItem}>
+                <div className="item">
+                    <div className="form-wrapper">
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="formName">
+                                <Form.Label>Dish/Drink name</Form.Label>
+                                <Form.Control type="text" required={true} />
+                            </Form.Group>
+                            <Form.Group as={Col} xs="4" controlId="formPrice">
+                                <Form.Label>Price</Form.Label>
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text>€</InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="number" step="0.01" min="0.01" required={true} />
+                                </InputGroup>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Group controlId="formDesc">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" required={true} />
+                        </Form.Group>
+                        <Form.Group controlId="formImage" >
+                            <Form.Label>Dish/Drink picture</Form.Label>
+                            <Form.File
+                                id="custom-file"
+                                label={fileName}
+                                custom
+                                onChange={(e) => handleImageFile(e)}
+                            />
+                        </Form.Group>
+
+                        <img id="preview-image" src={imagePreview} alt="preview" hidden={!imagePreview} />
+
                     </div>
-                </Form>
-            </div>
-            <div className="form-wrapper">
-                <img id="preview" src={imagePreview} alt="preview" hidden={!imagePreview} />
-            </div>
+                    <div className="form-wrapper">
+                        <Form.Group controlId="formIngredients" >
+                            <Form.Label>Ingredients</Form.Label>
+                            <Select
+                                isMulti
+                                name="formIngredients"
+                                options={ingredients}
+                                defaultValue={selectedIngredients}
+                                onChange={(items) => {
+                                    setSelectedIngredients(items);
+                                    let ingredientsList = [];
+                                    items.forEach((ing) => {
+                                        ingredientsList.push({
+                                            ingredient: ing.value, amountUsed: 0
+                                        });
+                                    });
+                                    setIngredientObject(ingredientsList);
+                                }}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                            />
+                            <Form.Text>
+                                Make sure to add all ingredients before filling their amount values in.
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Row>
+                            {
+                                selectedIngredients?.map(ing => (
+                                    <div key={ing.value}>
+                                        <Form.Group as={Col} >
+                                            <Form.Label>{ing.label}</Form.Label>
+                                        </Form.Group>
+                                        <Form.Group as={Col} >
+                                            <Form.Control
+                                                id=""
+                                                type="number"
+                                                step="0.01" 
+                                                min="0.01"
+                                                required={true}
+                                                placeholder="amount"
+                                                onChange={(e) => {
+                                                    setIngredientObject(
+                                                        ingredientObject.map(item =>
+                                                            item.ingredient === ing.value
+                                                                ? { ...item, amount: Number(e.target.value) }
+                                                                : item
+                                                        ))
+                                                }}
+                                            />
+                                        </Form.Group>
+                                    </div>
+                                ))
+                            }
+                        </Form.Row>
+                        <div>
+                            <Alert variant="info" hidden={!info} >   
+                                    <i style={{fontSize:"1.5em"}} className="bi bi-info-circle align-middle"></i>
+                                    {' '} 
+                                    <span className="align-middle">Your new menu item is being created... </span>
+                            </Alert>
+                            <Alert variant="danger" hidden={!err} dismissible onClose={() => setErr()} >
+                                <i style={{fontSize:"1.5em"}} className="bi bi-exclamation-triangle align-middle"></i>
+                                {' '} 
+                                <span className="align-middle"> {err} </span>
+                            </Alert>
+                            <div className="d-flex justify-content-between">
+                                <Button className="btnSubmit" type="submit"> Save </Button>
+                                <Button variant="outline-secondary" type="button" onClick={() => history.goBack()}> Cancel </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Form>
         </div>
     );
 }
