@@ -14,7 +14,7 @@ export default function AddMenuItem() {
      */
 
     // use the parameters sent in the url
-    const { categoryName, categoryId } = useParams();
+    const { categoryType, categoryName, categoryId } = useParams();
 
     const history = useHistory();
 
@@ -112,10 +112,22 @@ export default function AddMenuItem() {
 
     return (
         <div>
-            <h1 className="text-center">Add menu item for "{categoryName}"</h1>
+            <h1 className="text-center">Add menu item</h1>
             <Form onSubmit={newMenuItem}>
                 <div className="item">
-                    <div className="form-wrapper">
+                    <div className="form-wrapper-lg">
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="formName">
+                                <Form.Label>Category name</Form.Label>
+                                <Form.Control type="text" value={categoryName} required={true} disabled />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="formPrice">
+                                <Form.Label>Category type</Form.Label>
+                                <InputGroup className="mb-2">
+                                    <Form.Control type="text" value={categoryType} disabled />
+                                </InputGroup>
+                            </Form.Group>
+                        </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formName">
                                 <Form.Label>Dish/Drink name</Form.Label>
@@ -148,7 +160,7 @@ export default function AddMenuItem() {
                         <img id="preview-image" src={imagePreview} alt="preview" hidden={!imagePreview} />
 
                     </div>
-                    <div className="form-wrapper">
+                    <div className="form-wrapper-lg">
                         <Form.Group controlId="formIngredients" >
                             <Form.Label>Ingredients</Form.Label>
                             <Select
@@ -206,7 +218,7 @@ export default function AddMenuItem() {
                             <Alert variant="info" hidden={!info} >   
                                     <i style={{fontSize:"1.5em"}} className="bi bi-info-circle align-middle"></i>
                                     {' '} 
-                                    <span className="align-middle">Your new menu item is being created... </span>
+                                    <span className="align-middle">Your new menu item is being created. Please wait.. </span>
                             </Alert>
                             <Alert variant="danger" hidden={!err} dismissible onClose={() => setErr()} >
                                 <i style={{fontSize:"1.5em"}} className="bi bi-exclamation-triangle align-middle"></i>

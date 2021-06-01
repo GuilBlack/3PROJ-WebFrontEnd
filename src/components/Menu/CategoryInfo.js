@@ -5,7 +5,7 @@ import { deleteMenuItem } from '../../api'
 
 export default function CategoryInfo(category, setRerender) {
     // path to use in route when creating new menu items
-    const path = `/add-menu-item/${String(category.category.name)}/${String(category.category._id)}`;
+    const path = `/${String(category.category.type)}/${String(category.category.name)}/${String(category.category._id)}/new`;
 
     const removeItem = (id) => {
         // api call

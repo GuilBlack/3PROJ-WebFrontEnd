@@ -39,7 +39,7 @@ h2 {
 }
 
 th {
-  font-family: "Brush Script MT", "amatic_scregular", sans-serif;
+  font-family: "Brus Script MT", "amatic_scregular", sans-serif;
   font-size: 25px;
 }
 
@@ -50,6 +50,11 @@ form {
 .form-wrapper {
   max-width: 600px;
   margin: 0 auto;
+}
+
+.form-wrapper-lg {
+  /* max-width: 800px;
+  margin: 0 auto; */
 }
 
 .item {
@@ -139,4 +144,28 @@ form {
 
 .section2{
   padding: 20px;
+}
+
+.select__control.css-yk16xz-control, .basic-multi-select.css-2b097c-container {
+  max-width: 600px;
+}
+
+/* MAP */
+#map {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.map-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.map-tile {
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+  background-color: white;
 }
