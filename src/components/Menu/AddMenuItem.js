@@ -112,17 +112,17 @@ export default function AddMenuItem() {
 
     return (
         <div>
-            <h1 className="text-center">Add menu item</h1>
+            <h1 className="text-center">Add Menu Item</h1>
             <Form onSubmit={newMenuItem}>
                 <div className="item">
-                    <div className="form-wrapper-lg">
+                    <div className="form-wrapper">
                         <Form.Row>
-                            <Form.Group as={Col} controlId="formName">
-                                <Form.Label>Category name</Form.Label>
+                            <Form.Group as={Col}>
+                                <Form.Label>Category Name</Form.Label>
                                 <Form.Control type="text" value={categoryName} required={true} disabled />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formPrice">
-                                <Form.Label>Category type</Form.Label>
+                            <Form.Group as={Col}>
+                                <Form.Label>Category Type</Form.Label>
                                 <InputGroup className="mb-2">
                                     <Form.Control type="text" value={categoryType} disabled />
                                 </InputGroup>
@@ -130,7 +130,7 @@ export default function AddMenuItem() {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formName">
-                                <Form.Label>Dish/Drink name</Form.Label>
+                                <Form.Label>Dish/Drink Name</Form.Label>
                                 <Form.Control type="text" required={true} />
                             </Form.Group>
                             <Form.Group as={Col} xs="4" controlId="formPrice">
@@ -148,7 +148,7 @@ export default function AddMenuItem() {
                             <Form.Control as="textarea" required={true} />
                         </Form.Group>
                         <Form.Group controlId="formImage" >
-                            <Form.Label>Dish/Drink picture</Form.Label>
+                            <Form.Label>Dish/Drink Picture</Form.Label>
                             <Form.File
                                 id="custom-file"
                                 label={fileName}
@@ -160,7 +160,7 @@ export default function AddMenuItem() {
                         <img id="preview-image" src={imagePreview} alt="preview" hidden={!imagePreview} />
 
                     </div>
-                    <div className="form-wrapper-lg">
+                    <div className="form-wrapper">
                         <Form.Group controlId="formIngredients" >
                             <Form.Label>Ingredients</Form.Label>
                             <Select
@@ -191,20 +191,18 @@ export default function AddMenuItem() {
                                     <div key={ing.value}>
                                         <Form.Group as={Col} >
                                             <Form.Label>{ing.label}</Form.Label>
-                                        </Form.Group>
-                                        <Form.Group as={Col} >
                                             <Form.Control
                                                 id=""
                                                 type="number"
                                                 step="0.01" 
                                                 min="0.01"
                                                 required={true}
-                                                placeholder="amount"
+                                                placeholder="Amount"
                                                 onChange={(e) => {
                                                     setIngredientObject(
                                                         ingredientObject.map(item =>
                                                             item.ingredient === ing.value
-                                                                ? { ...item, amount: Number(e.target.value) }
+                                                                ? { ...item, amountUsed: Number(e.target.value) }
                                                                 : item
                                                         ))
                                                 }}
