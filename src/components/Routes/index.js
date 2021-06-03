@@ -14,6 +14,7 @@ import Staff from '../Staff';
 import Menu from '../Menu';
 import AddMenuItem from '../Menu/AddMenuItem';
 import Ingredients from '../Ingredients';
+import Map from '../Map';
 
 // ROUTES
 export default function Routes() {
@@ -28,6 +29,7 @@ export default function Routes() {
                 <PrivateRoute Component={Ingredients} name="ingredients" path="/ingredients" />
                 <PrivateRoute Component={AddMenuItem} name="add-menu-item" path="/:categoryType/:categoryName/:categoryId/new" />
                 <PrivateRoute Component={Menu} name="menu" path="/menu" />
+                <PrivateRoute Component={Map} name="map" path="/map" />
                 <PrivateRoute Component={Home} name="home" path="/" />
             </Switch>
         </Router> 

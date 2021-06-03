@@ -25,3 +25,7 @@ export const deleteCategory = (id) => API.delete('/menu/delete-category', {data:
 // menu item
 export const addMenuItem = (menuItem) => API.post('/menu/add-menu-item', menuItem, { headers: { "Content-Type": "multipart/form-data" } });
 export const deleteMenuItem = (id) => API.delete('/menu/delete-menu-item', {data: id});
+
+// table arrangement
+export const getTableArrangement = () => API.get('/table/get-arrangement');
+export const updateTableArrangement = (layout) => API.put('/table/update-arrangement', layout);

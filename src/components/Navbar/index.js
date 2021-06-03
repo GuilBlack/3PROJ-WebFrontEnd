@@ -23,6 +23,9 @@ export default function AppNavbar() {
                     <Nav.Item>
                         <Nav.Link href="/menu">Menu</Nav.Link>
                     </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="/map">Map</Nav.Link>
+                    </Nav.Item>
                     
                     <Nav.Item>
                         <Button hidden={!loggedIn} variant="link" onClick={() => { logout(); setLoggedIn(false) }}>Log out</Button>
