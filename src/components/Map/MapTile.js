@@ -6,20 +6,17 @@ import 'reactjs-popup/dist/index.css';
 export default function MapTile({ tile, mapLayout, setMapLayout }) {
     const [btnVariant, setBtnVariant] = useState(tile.hasTable ? "info" : "light");
     const [tableCapacity, setTableCapacity] = useState(tile.capacity);
-    const [err, setErr] = useState();
+    const [err, setErr] = useState(false);
 
-    /**
-     * TODO:
-     * - figure out how to clear input value for table capacity when closing the modal by clicking out of it
-     */
-
-    // useEffect(() => {
-    //     if(tile.hasTable) setTableCapacity(tile.capacity);
-    // }, [tile.capacity, tile.hasTable]);
+    const closeModal = () => {
+        setErr(false);
+        if(!tile.hasTable)
+            document.getElementsByClassName("table-capacity").value = null;
+    }
 
     const handleMapTile = () => {
-        if (tableCapacity === 0) {
-            setErr("Table capacity missing.");
+        if (tableCapacity < 2 || tableCapacity > 6 ) {
+            setErr(true);
             return true;
         }
 
@@ -42,22 +39,24 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
             ))
         );
 
-        setErr();
+        setErr(false);
         return false;
     }
 
-    console.log()
+    console.log(tableCapacity);
 
     return (
         <div className="map-tile">
             <div className="position-center">
                 <div>
-                    <Popup trigger={
-                        <Button variant={btnVariant} className="map-btn">
-                            {tile.position}
-                        </Button>
-                    }
+                    <Popup 
+                        trigger={
+                            <Button variant={btnVariant} className="map-btn">
+                                {tile.position}
+                            </Button>
+                        }
                         modal
+                        onClose={closeModal}
                     >
                         {close => (
                             tile.hasTable
@@ -68,13 +67,12 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
                                         <Button
                                             onClick={async () => {
                                                 let errStatus = await handleMapTile();
-                                                console.log(errStatus);
                                                 if (!errStatus) close();
                                             }}
                                         >
                                             Yes
-                                            </Button>
-                                        <Button variant="outline-secondary" onClick={() => close()}> No </Button>
+                                        </Button>
+                                        <Button variant="outline-secondary" onClick={close}> No </Button>
                                     </div>
                                 </div>
                                 :
@@ -103,7 +101,6 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
                                         <Button
                                             onClick={async () => {
                                                 let errStatus = await handleMapTile();
-                                                console.log(errStatus);
                                                 if (!errStatus) close();
                                             }}
                                         >
@@ -111,10 +108,7 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
                                         </Button>
                                         <Button
                                             variant="outline-secondary"
-                                            onClick={() => {
-                                                close();
-                                                document.getElementsByClassName("table-capacity").value = null;
-                                            }}>
+                                            onClick={close}>
                                             Cancel
                                         </Button>
                                     </div>
