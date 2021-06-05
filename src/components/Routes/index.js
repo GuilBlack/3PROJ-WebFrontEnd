@@ -26,7 +26,7 @@ export default function Routes() {
                 </Route>
                 <PrivateRoute Component={Staff} name="staff" path="/staff" />
                 <PrivateRoute Component={RegisterStaff} name="register" path="/register-staff" />
-                <PrivateRoute Component={Ingredients} name="ingredients" path="/ingredients" />
+                <PrivateRoute Component={Ingredients} name="stock" path="/stock" />
                 <PrivateRoute Component={AddMenuItem} name="add-menu-item" path="/:categoryType/:categoryName/:categoryId/new" />
                 <PrivateRoute Component={Menu} name="menu" path="/menu" />
                 <PrivateRoute Component={Map} name="map" path="/map" />

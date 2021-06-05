@@ -135,7 +135,7 @@ export default function Ingredients() {
 
 	return (
 		<div>
-			<h1 className="text-center">Ingredients</h1>
+			<h1 className="text-center">Stock</h1>
 			<div className="text-center" hidden={!err}>
 				<Alert variant="danger">
 					<Alert.Heading>Oops!</Alert.Heading>
@@ -146,8 +146,8 @@ export default function Ingredients() {
 				<Table responsive striped hover>
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Stock</th>
+							<th>Item</th>
+							<th>Amount</th>
 							<th>Restock</th>
 						</tr>
 					</thead>
@@ -182,7 +182,7 @@ export default function Ingredients() {
 										</Form.Label>
 										<Form.Control
 											name="formStockAdded"
-											placeholder="Add stock"
+											placeholder="Restock amount"
 										/>
 										<Button
 											type="button"
@@ -213,7 +213,7 @@ export default function Ingredients() {
 							</Form.Label>
 							<Form.Control
 								id="formName"
-								placeholder="Ingredient's name"
+								placeholder="Stock item"
 								required
 							/>
 						</Col>
@@ -230,7 +230,7 @@ export default function Ingredients() {
 							/>
 						</Col>
 						<Col>
-							<Button type="submit">Submit</Button>
+							<Button type="submit">Add to stock</Button>
 						</Col>
 					</Form>
 				</Row>

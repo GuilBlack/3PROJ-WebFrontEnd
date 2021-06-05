@@ -18,13 +18,13 @@ export default function AppNavbar() {
                         <Nav.Link href="/staff">Staff</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/ingredients">Ingredients</Nav.Link>
+                        <Nav.Link href="/map">Map</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link href="/menu">Menu</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/map">Map</Nav.Link>
+                        <Nav.Link href="/stock">Stock</Nav.Link>
                     </Nav.Item>
                     
                     <Nav.Item>

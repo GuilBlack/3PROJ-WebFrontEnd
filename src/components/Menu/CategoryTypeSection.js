@@ -109,7 +109,7 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
             {
                 categories?.filter(category => category.type.includes(type))
                     .map(filteredCategory => (
-                        <div className="member-info" key={filteredCategory._id}>
+                        <div className="menu-info" key={filteredCategory._id}>
                             <div className="d-flex justify-content-end">
                                 <Button variant="link" onClick={() => removeCategory(filteredCategory._id)}>
                                     <i className="bi bi-x-circle-fill"></i>

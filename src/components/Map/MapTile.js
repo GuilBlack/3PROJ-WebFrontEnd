@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -61,8 +61,9 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
                         {close => (
                             tile.hasTable
                                 ?
-                                <div className="text-center">
+                                <div className="text-center popup-info">
                                     <h3>Remove Table {tile.position}?</h3>
+                                    <p>Capacity: {tile.capacity} people</p>
                                     <div className="d-flex justify-content-around">
                                         <Button
                                             onClick={async () => {
@@ -76,7 +77,7 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
                                     </div>
                                 </div>
                                 :
-                                <div className="text-center">
+                                <div className="text-center popup-info">
                                     <h3>Add Table {tile.position}?</h3>
                                     <div>
                                         <Form>
