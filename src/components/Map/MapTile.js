@@ -43,8 +43,6 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
         return false;
     }
 
-    console.log(tableCapacity);
-
     return (
         <div className="map-tile">
             <div className="position-center">
@@ -63,7 +61,9 @@ export default function MapTile({ tile, mapLayout, setMapLayout }) {
                                 ?
                                 <div className="text-center popup-info">
                                     <h3>Remove Table {tile.position}?</h3>
-                                    <p>Capacity: {tile.capacity} people</p>
+                                    <br />
+                                    <p>Capacity: <strong>{tile.capacity}</strong> people</p>
+                                    <br />
                                     <div className="d-flex justify-content-around">
                                         <Button
                                             onClick={async () => {
