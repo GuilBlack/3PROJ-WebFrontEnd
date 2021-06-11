@@ -2,7 +2,7 @@ import axios from "axios";
 
 // set base URL
 const API = axios.create({
-	baseURL: "http://localhost:6969",
+	baseURL: "https://api.guillaumeblackburn.me",
 	withCredentials: true,
 });
 
