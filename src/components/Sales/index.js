@@ -132,8 +132,8 @@ export default function Sales() {
 					</Button>
 				</Form>
 				<h2 style={{ marginTop: "2em" }}>
-					Your Total Revenue For This Time Frame Is: {totalRevenue}{" "}
-					EUR
+					Your Total Revenue For This Time Frame Is:{" "}
+					{Math.round(totalRevenue * 100) / 100} EUR
 				</h2>
 				<Tabs activeKey={tabKey} onSelect={(k) => setTabKey(k)}>
 					<Tab eventKey="Appetisers" title="Appetisers">
