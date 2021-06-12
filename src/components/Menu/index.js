@@ -15,7 +15,6 @@ export default function Menu() {
     useEffect(() => {
         getAllCategories()
             .then((res) => {
-                console.log(res.data);
                 setCategories(res.data);
                 setLoading(false);
             })

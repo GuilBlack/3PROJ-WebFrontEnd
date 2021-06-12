@@ -31,7 +31,6 @@ export default function AddMenuItem() {
         // call for list of ingredients
         listIngredients()
             .then((res) => {
-                console.log(res.data);
                 let ingredientsList = [];
                 res.data.forEach((ing) => {
                     ingredientsList.push({
@@ -82,15 +81,9 @@ export default function AddMenuItem() {
         menuItem.append('price', formData.formPrice.value);
         menuItem.append('ingredients', JSON.stringify(ingredientObject));
 
-        // Display the key/value pairs
-        for (var pair of menuItem.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
-
         // api call
         addMenuItem(menuItem)
             .then((res) => {
-                console.log(res);
                 history.push('/menu');
             })
             .catch((err) => {
@@ -107,9 +100,6 @@ export default function AddMenuItem() {
                 setInfo(false);
             });
     }
-
-    console.log(ingredientObject);
-
     return (
         <div>
             <h1 className="text-center">Add Menu Item</h1>

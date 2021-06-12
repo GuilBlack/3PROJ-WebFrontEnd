@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Col, Button, Alert } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { addMenuCategory, deleteCategory } from '../../api';
 import CategoryInfo from './CategoryInfo';
 
@@ -7,7 +8,8 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
     const [hideForm, setHideForm] = useState(true);
     const [nameInput, setNameInput] = useState("");
     const [success, setSucess] = useState(false);
-    const [err, setErr] = useState();
+    const [newCatErr, setNewCatErr] = useState();
+    const [delCatErr, setDelCatErr] = useState();
 
     // when adding a new category
     const newCategory = e => {
@@ -24,7 +26,6 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
         // api call
         addMenuCategory(newCategory)
             .then((res) => {
-                console.log(res);
                 setRerender(res.config.data);
                 setNameInput("");
                 setSucess(true);
@@ -32,11 +33,11 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
             .catch((err) => {
                 if (err.response) {
                     if (err.response.status === 401)
-                        setErr("An unexpected error occured. Please log out and log back in to proceed.");
+                        setNewCatErr("An unexpected error occured. Please log out and log back in to proceed.");
                     else
-                        setErr(`Category "${nameInput}" already exists`);
+                        setNewCatErr(`Category "${nameInput}" already exists`);
                 } else {
-                    setErr("The servers can't be reached at the moment.");
+                    setNewCatErr("The servers can't be reached at the moment.");
                 }
                 setNameInput("");
             });
@@ -46,18 +47,16 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
     const removeCategory = id => {
         deleteCategory({ categoryId: id })
             .then((res) => {
-                console.log(res);
                 setRerender(id);
             })
             .catch((err) => {
                 if (err.response) {
                     if (err.response.status === 401)
-                        console.log("An unexpected error occured. Please log out and log back in to proceed.");
+                        setDelCatErr("An unexpected error occured. Please log out and log back in to proceed.");
                     else
-                        console.log(err.response.data.message);
-                    console.log(err.response.data.err);
+                        setDelCatErr(err.response.data.message);
                 } else {
-                    console.log("The servers can't be reached at the moment.");
+                    setDelCatErr("Failed to delete category: our servers are down at the moment. Please try again later.");
                 }
             });
     }
@@ -71,10 +70,16 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
     }
 
     // make error alert automatically go away after 2 seconds
-    if (err) {
+    if (newCatErr) {
         setTimeout(() => {
-            setErr();
+            setNewCatErr();
         }, 2000);
+    }
+
+    if (delCatErr) {
+        setTimeout(() => {
+            setDelCatErr();
+        }, 5000);
     }
 
     return (
@@ -84,26 +89,26 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
             </Button>
 
             <div hidden={hideForm}>
-                    <Form onSubmit={newCategory}>
-                        <Form.Row className="align-items-center">
-                            <Col xs="auto">
-                                <Form.Control id="formName" type="text" required={true} value={nameInput} placeholder="Category name" onChange={(e) => setNameInput(e.target.value)} />
-                            </Col>
-                            <Col xs="auto">
-                                <Button className="btnSubmit" type="submit">Add</Button>
-                            </Col>
-                        </Form.Row>
-                    </Form>
-                    <Alert variant="success" hidden={!success} >    
-                        <i style={{fontSize:"1.5em"}} className="bi bi-check2-circle align-middle"></i>
-                        {' '} 
-                        <span className="align-middle">Successfully added!</span>
-                    </Alert>
-                    <Alert variant="danger" hidden={!err} >
-                        <i style={{fontSize:"1.5em"}} className="bi bi-exclamation-triangle align-middle"></i>
-                        {' '} 
-                        <span className="align-middle"> {err} </span>
-                    </Alert>
+                <Form onSubmit={newCategory}>
+                    <Form.Row className="align-items-center">
+                        <Col xs="auto">
+                            <Form.Control id="formName" type="text" required={true} value={nameInput} placeholder="Category name" onChange={(e) => setNameInput(e.target.value)} />
+                        </Col>
+                        <Col xs="auto">
+                            <Button className="btnSubmit" type="submit">Add</Button>
+                        </Col>
+                    </Form.Row>
+                </Form>
+                <Alert variant="success" hidden={!success} >
+                    <i style={{ fontSize: "1.5em" }} className="bi bi-check2-circle align-middle"></i>
+                    {' '}
+                    <span className="align-middle">Successfully added!</span>
+                </Alert>
+                <Alert variant="danger" hidden={!newCatErr} >
+                    <i style={{ fontSize: "1.5em" }} className="bi bi-exclamation-triangle align-middle"></i>
+                    {' '}
+                    <span className="align-middle"> {newCatErr} </span>
+                </Alert>
             </div>
 
             {
@@ -111,14 +116,25 @@ export default function CategoryTypeSection({ type, categories, setRerender }) {
                     .map(filteredCategory => (
                         <div className="menu-info" key={filteredCategory._id}>
                             <div className="d-flex justify-content-end">
-                                <Button variant="link" onClick={() => removeCategory(filteredCategory._id)}>
+                                <Button className="delete-btn" variant="link" onClick={() => removeCategory(filteredCategory._id)}>
                                     <i className="bi bi-x-circle-fill"></i>
                                 </Button>
                             </div>
+                            <Alert variant="danger" hidden={!delCatErr} >
+                                <i style={{ fontSize: "1.5em" }} className="bi bi-exclamation-triangle align-middle"></i>
+                                {' '}
+                                <span className="align-middle"> {delCatErr} </span>
+                            </Alert>
                             <CategoryInfo category={filteredCategory} setRerender={setRerender} />
                         </div>
                     ))
             }
         </div>
     );
+}
+
+CategoryTypeSection.protoTypes = {
+    type: PropTypes.string.isRequired,
+    categories: PropTypes.object,
+    setRerender: PropTypes.func.isRequired
 }
