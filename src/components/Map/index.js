@@ -129,7 +129,7 @@ export default function Map() {
                 modal
             >
                 <div className="text-center popup-info">
-                    <i class="bi bi-exclamation-triangle-fill text-danger" style={{fontSize:"10em"}}></i>
+                    <i className="bi bi-exclamation-triangle-fill text-danger" style={{fontSize:"10em"}}></i>
                     <p>
                         You're about to save a layout while operations might still be going on in the restaurant for the day.{' '}
                         <strong className="text-danger">Proceed only if the restaurant is currently not in activity.</strong>
