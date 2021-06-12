@@ -80,6 +80,7 @@ export default function Sales() {
 		setDessertsData([]);
 		setDrinksData([]);
 		resData.forEach((data) => {
+			data.income = Math.round(data.income * 100) / 100;
 			tempRevenue += data.income;
 			switch (data.type) {
 				case "Appetisers":
