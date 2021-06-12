@@ -45,11 +45,7 @@ th {
 
 form {
   padding: 20px;
-  width: 100%;
-}
-
-input {
-  width: 100%;
+  /* width: 100%; */
 }
 
 .form-wrapper {
@@ -249,9 +245,22 @@ input {
   position: absolute;
 }
 
-/* .select__control.css-yk16xz-control, .basic-multi-select.css-2b097c-container {
-  max-width: 600px;
-} */
+form {
+  padding: 20px;
+  width: 100%;
+}
+
+/* MENU ADD ITEM */
+.form-menu-item {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.form-menu-item-sub {
+  width: 45%;
+  min-width: 300px;
+}
 
 /* MAP */
 .position-center {

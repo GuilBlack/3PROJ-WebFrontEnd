@@ -6,13 +6,6 @@ import { addMenuItem, listIngredients } from '../../api';
 
 export default function AddMenuItem() {
 
-    /**
-     * TODO:
-     * - handle ingredients amounts get removed when an ingredient is removed from the multi dropdown
-     *  --> clear input values upon ingredient change?
-     * - add CSS
-     */
-
     // use the parameters sent in the url
     const { categoryType, categoryName, categoryId } = useParams();
 
@@ -61,10 +54,10 @@ export default function AddMenuItem() {
 
     const newMenuItem = e => {
         e.preventDefault();
-        
-        if(!imagePreview) {
+
+        if (!imagePreview) {
             return setErr("Please choose an image for this menu item.");
-        } else if(ingredientObject.length === 0) {
+        } else if (ingredientObject.length === 0) {
             return setErr("You forgot to input the ingredients.");
         } else {
             setErr();
@@ -104,8 +97,8 @@ export default function AddMenuItem() {
         <div>
             <h1 className="text-center">Add Menu Item</h1>
             <Form onSubmit={newMenuItem}>
-                <div className="item">
-                    <div className="form-wrapper">
+                <div className="form-menu-item">
+                    <div className="form-menu-item-sub">
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Label>Category Name</Form.Label>
@@ -150,7 +143,7 @@ export default function AddMenuItem() {
                         <img id="preview-image" src={imagePreview} alt="preview" hidden={!imagePreview} />
 
                     </div>
-                    <div className="form-wrapper">
+                    <div className="form-menu-item-sub">
                         <Form.Group controlId="formIngredients" >
                             <Form.Label>Ingredients</Form.Label>
                             <Select
@@ -172,19 +165,19 @@ export default function AddMenuItem() {
                                 classNamePrefix="select"
                             />
                             <Form.Text>
-                                Make sure to add all ingredients before filling their amount values in.
+                                <strong className="text-danger">*</strong> Make sure to add all ingredients before filling their amount values in.
                             </Form.Text>
                         </Form.Group>
                         <Form.Row>
                             {
                                 selectedIngredients?.map(ing => (
                                     <div key={ing.value}>
-                                        <Form.Group as={Col} >
+                                        <Form.Group as={Col} style={{ maxWidth: "210px" }} >
                                             <Form.Label>{ing.label}</Form.Label>
                                             <Form.Control
                                                 id=""
                                                 type="number"
-                                                step="0.01" 
+                                                step="0.01"
                                                 min="0.01"
                                                 required={true}
                                                 placeholder="Amount"
@@ -203,17 +196,17 @@ export default function AddMenuItem() {
                             }
                         </Form.Row>
                         <div>
-                            <Alert variant="info" hidden={!info} >   
-                                    <i style={{fontSize:"1.5em"}} className="bi bi-info-circle align-middle"></i>
-                                    {' '} 
-                                    <span className="align-middle">Your new menu item is being created. Please wait.. </span>
+                            <Alert variant="info" hidden={!info} >
+                                <i style={{ fontSize: "1.5em" }} className="bi bi-info-circle align-middle"></i>
+                                {' '}
+                                <span className="align-middle">Your new menu item is being created. Please wait.. </span>
                             </Alert>
                             <Alert variant="danger" hidden={!err} dismissible onClose={() => setErr()} >
-                                <i style={{fontSize:"1.5em"}} className="bi bi-exclamation-triangle align-middle"></i>
-                                {' '} 
+                                <i style={{ fontSize: "1.5em" }} className="bi bi-exclamation-triangle align-middle"></i>
+                                {' '}
                                 <span className="align-middle"> {err} </span>
                             </Alert>
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between" style={{padding:"10px"}}>
                                 <Button className="btnSubmit" type="submit"> Save </Button>
                                 <Button variant="outline-secondary" type="button" onClick={() => history.goBack()}> Cancel </Button>
                             </div>
