@@ -158,7 +158,7 @@ export default function Ingredients() {
 									{ingredient.name}
 								</td>
 								<td style={{ width: "33%" }}>
-									{ingredient.stock}
+									{Math.round(ingredient.stock * 100) / 100}
 								</td>
 								<td style={{ width: "33%" }}>
 									<Form
